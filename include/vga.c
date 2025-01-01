@@ -36,6 +36,8 @@ uint16_t putc(uint8_t ch, uint8_t attr)
   if (ch == '\n') {
     uint16_t row = get_offset_row(offset);
     offset = get_offset(0, row + 1);
+  } else if (ch == '\r') {
+    offset -=2;
   } else {
     vidmem[offset] = ch;
     vidmem[offset + 1] = attr;
