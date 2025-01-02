@@ -3,26 +3,31 @@
 
 char kscan()
 {
-  char key = 0;           /* здесь будет храниться сам скан код клавишы */
-  if (inb(0x64) & 0x01) { /* проверка нажата ли клавиша                 */
-    key = inb(0x60);      /* запись скан кода клавишы                   */
+  char key = 0;           /* Reading key code                           */
+  if (inb(0x64) & 0x01) {
+    key = inb(0x60);
   }
-                          /* а вот тут и начинаются проблемы 
-			   *   скан код не хранит в себе самой буквы
-			   *   как сконвертировать скан код в ascii я не нашла
-			   *   ниже я эксперементировала, прошу переделать говнокод
-			   *   далее мой говнокод -->
-			  */
-  
-  switch (key) {  
-    case 0x10:
-      return 'q';
-      break;
-    case 0xE:
-      return '\r';
-      break;
-    default:
-      return 0;
+
+  if (key == 0xE) {       /* Decode the scan code to ascii              */
+    return '\r';
+  } else if (key == 0x1C) {
+    return '\n';
+  } else if (key == 0x52) {
+    return '0';
+  } else if (key == 0x39) {
+    return ' ';
+  } else if (key == 0x34) {
+    return '.';
+  } else if (key == 0xB5) {
+    return '/';
+  } else if (key >= 0x2 && key <= 0xA) {
+    return _num[key - 0x2];
+  } else if (key >= 0x10 && key <= 0x1C) {
+    return _qwertzuiop[key - 0x10];
+  } else if (key >= 0x1E && key <= 0x26) {
+    return _asdfghjkl[key - 0x1E];
+  } else if (key >= 0x2C && key <= 0x32) {
+    return _yxcvbnm[key - 0x2C];
   }
-                          /* если что то enum со скан кодами находится в keyboard.h */
+  return 0;
 }

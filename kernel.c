@@ -6,14 +6,11 @@
 void kmain()
 {
   init_gdt();
-  putc('x', 0x07);
-  putc('s', 0x07);
-  putc('h', 0x07);
-  putc('>', 0x07);
-  for (;;) {
-   char a = kscan();
-   if (a != 0) {
-     putc(a, 0x07);
+  vga_print("Hello World!");
+  for (;;) {         /* цикл чтения клавишы из клавиатуры */
+   char a = kscan(); /* само чтение  */
+   if (a != 0) {     /* проверка нажатия клавишы  */
+     putc(a, 0x07);  /* вывод символа на экран    */
    }
   }
 }

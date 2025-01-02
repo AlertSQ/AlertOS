@@ -1,4 +1,11 @@
 char kscan();
+
+static char* _qwertzuiop = "qwertyuiop";
+static char* _asdfghjkl = "asdfghjkl";
+static char* _yxcvbnm = "zxcvbnm";
+static char* _num = "1234567890";
+
+/*
 enum keycode {
   NULL_KEY = 0,
   Q = 0x10,
@@ -26,9 +33,9 @@ enum keycode {
   V = 0x2F,
   B = 0x30,
   N = 0x31,
-  M = 0x32,
+ M = 0x32,
   POINT = 0x34,
   BACKSPACE = 0xE,
   SPACE = 0x39,
   ENTER = 0x1C,
-};
+};*/
