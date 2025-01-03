@@ -29,7 +29,7 @@ void set_cursor_offset(uint16_t offset)
   outb(0x3D5, (uint8_t)(offset & 0xFF));
 }
 
-void putc(uint8_t ch, uint8_t attr)
+void vga_putc(uint8_t ch, uint8_t attr)
 {
   uint8_t *vidmem = (uint8_t*) video_address;
   uint16_t offset = get_cursor_offset();
@@ -50,7 +50,7 @@ void vga_print(char *s)
 {
   int i = 0;
   while (s[i] != '\0') {
-    putc(s[i], 0x07);
+    vga_putc(s[i], 0x07);
     i++;
   }
 }
