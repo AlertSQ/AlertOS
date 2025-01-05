@@ -62,7 +62,7 @@ void init_idt()
     }
   }
 
-  for (uint8_t vector = 0; vector < 32; vector++) {
+  for (uint8_t vector = 32; vector < 255; vector++) {
     idt_set_descriptor(vector, interrupt_handler, 0x8E);
   }
   __asm__ volatile ("lidt %0" : : "m"(idtr));
