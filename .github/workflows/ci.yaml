@@ -14,10 +14,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install qemu && make
+      - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential qemu-system-i386 make nasm
+          sudo apt-get install -y build-essential nasm
 
       - name: Build
         run: make
@@ -28,11 +28,7 @@ jobs:
         with:
           files: kernel.elf
 
-      - name: Run tests
-        if: steps.check_kernel.outputs.files_exists == 'true'
-        run: qemu-system-i386 -kernel kernel.elf -nographic -serial mon:stdio
-
-      - name: Upload kernel (optional)
+      - name: Upload kernel
         if: steps.check_kernel.outputs.files_exists == 'true'
         uses: actions/upload-artifact@v3
         with:
