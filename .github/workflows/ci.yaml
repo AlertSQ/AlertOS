@@ -17,7 +17,7 @@ jobs:
       - name: Install qemu && make
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential qemu-system-i386 make
+          sudo apt-get install -y build-essential qemu-system-i386 make nasm
 
       - name: Build
         run: make
