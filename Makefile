@@ -1,15 +1,18 @@
 include config.mk
 
-build:
-	mkdir $(BUILD)
-	$(CC) $(CFLAGS) -o $(BUILD)/lib.o include/lib.c
-	$(CC) $(CFLAGS) -o $(BUILD)/keyboard.o include/keyboard.c
-	$(CC) $(CFLAGS) -o $(BUILD)/vga.o include/vga.c
-	gcc $(CFLAGS) -o $(BUILD)/gdtc.o include/gdt.c
-	$(CC) $(CFLAGS) -o $(BUILD)/kernel.o kernel.c
-	$(AS) $(ASFLAGS) -o $(BUILD)/header.o header.s
-	$(AS) $(ASFLAGS) -o $(BUILD)/gdt.o gdt.s
-	$(LD) $(LDFLAGS) -o $(OUTPUT) $(BUILD)/*.o 
+build: $(OBJS) 
+	gcc $(CFLAGS) -c -o gdtc.o $(KDIR)/gdt.c
+	$(AS) $(ASFLAGS) -o gdt.o $(KDIR)/gdt.s
+	$(AS) $(ASFLAGS) -o header.o header.s
+	$(LD) $(LDFLAGS) -o $(OUTPUT) $(OBJS) gdtc.o gdt.o
 	@echo kernel.elf: done
+	
+$(IODIR)/%.o: $(IOSRC)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(KDIR)/%.o: $(KSRC)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-	rm -rf $(BUILD)
+	@rm $(OBJS) *.o 
+	@echo clean: done
