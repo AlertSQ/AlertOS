@@ -7,7 +7,7 @@ LD = ld#.lld
 VERSION = 1.0
 PREFIX = ./boot
 KDIR = ./kernel
-IODIR = ./IO
+asdIODIR = ./IO
 
 #flags
 CFLAGS = -g -m32 -std=c11 -fno-pie -Wall -Wextra -Wno-unused-parameter -nostdlib -ffreestanding
