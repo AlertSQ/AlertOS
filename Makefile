@@ -17,4 +17,4 @@ $(KDIR)/%.o: $(KSRC)/%.c
 
 clean:
 	@rm $(OBJS) *.o
-	@echo clean: done
+	@echo clean: false
