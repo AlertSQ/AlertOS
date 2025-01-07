@@ -1,5 +1,22 @@
-#include "../IO/include/vga.h"
 #include "include/idt.h"
+
+idt_entry_t idt[256];
+idtr_t idtr;
+
+__attribute__((interrupt)) void exception_handler(frame *f)
+{
+  vga_print("Exception detected!");
+}
+
+__attribute__((interrupt)) void exception_handler_err(frame *f, uint32_t code)
+{
+  vga_print("Kernel panic!");
+}
+
+__attribute__((interrupt)) void interrupt_handler(frame *f)
+{
+  vga_print("INT 0x80 ; INTERRUPT !");
+}
 
 void idt_set_descriptor(uint8_t vector, void* isr, uint8_t flags)
 {
@@ -15,7 +32,7 @@ void init_idt(void)
 {
   idtr.base = (uintptr_t)&idt[0];
   idtr.limit = (uint16_t)(8 * 256);
-  
+
   for (uint8_t vector = 0; vector < 32; vector++) {
     if (vector == 8 || vector == 10 || vector == 11 || vector == 12 || vector == 13 || vector == 14 || vector == 17 || vector == 30) {
       idt_set_descriptor(vector, exception_handler_err, 0x8E);

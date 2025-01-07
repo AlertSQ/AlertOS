@@ -7,10 +7,10 @@ LD = ld#.lld
 VERSION = 1.0
 PREFIX = ./boot
 KDIR = ./kernel
-IODIR = ./IO
+IODIR = ./io
 
 #flags
-CFLAGS = -g -m32 -std=c11 -fno-pie -Wall -Wextra -Wno-unused-parameter -nostdlib -ffreestanding
+CFLAGS = -g -m32 -std=c11 -fno-pie -Wall -Wextra -Wno-unused-parameter -nostdlib -ffreestanding 
 LDFLAGS = -m elf_i386 -T link.ld 
 ASFLAGS = -f elf32
 

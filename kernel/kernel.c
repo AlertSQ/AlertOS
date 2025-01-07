@@ -1,7 +1,7 @@
 #include "include/gdt.h"
 #include "include/idt.h"
-#include "../IO/include/vga.h"
-#include "../IO/include/keyboard.h"
+#include "../io/include/vga.h"
+#include "../io/include/keyboard.h"
 
 void kmain(void)
 {

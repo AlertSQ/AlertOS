@@ -1,10 +1,11 @@
 include config.mk
 
 build: $(OBJS) 
-	gcc $(CFLAGS) -c -o gdtc.o $(KDIR)/gdt.c
-	$(AS) $(ASFLAGS) -o gdt.o $(KDIR)/gdt.s
+	@echo objs are: $(OBJS)
+	gcc $(CFLAGS) -c -o $(KDIR)/gdtc.o $(KDIR)/gdt.c
+	$(AS) $(ASFLAGS) -o $(KDIR)/gdt.o $(KDIR)/gdt.s
 	$(AS) $(ASFLAGS) -o header.o header.s
-	$(LD) $(LDFLAGS) -o $(OUTPUT) $(OBJS) gdtc.o gdt.o
+	$(LD) $(LDFLAGS) -o $(OUTPUT) $(OBJS) $(KDIR)/gdtc.o $(KDIR)/gdt.o header.o
 	@echo kernel.elf: done
 	
 $(IODIR)/%.o: $(IOSRC)/%.c
@@ -14,5 +15,5 @@ $(KDIR)/%.o: $(KSRC)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@rm $(OBJS) *.o 
+	@rm $(OBJS) $(KDIR)/gdtc.o $(KDIR)/gdt.o header.o 
 	@echo clean: done
