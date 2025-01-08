@@ -27,12 +27,7 @@ typedef struct {
 __attribute__((interrupt)) void exception_handler(frame *f);
 __attribute__((interrupt)) void exception_handler_err(frame *f, uint32_t code);
 __attribute__((interrupt)) void interrupt_handler(frame *f);
-<<<<<<< HEAD
 void init_idt(void);
 void idt_set_descriptor(uint8_t vector, void* isr, uint8_t flags);
-=======
-void idt_set_descriptor(uint8_t vector, void* isr, uint8_t flags);
-void init_idt(void);
->>>>>>> 2d2a11c (splitted syscall.h)
 
 #endif
