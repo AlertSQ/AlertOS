@@ -1,5 +1,4 @@
-#ifndef IDT_H
-#define IDT_H
+#pragma once
 
 #include "../../io/include/vga.h"
 
@@ -29,5 +28,3 @@ __attribute__((interrupt)) void exception_handler_err(frame *f, uint32_t code);
 __attribute__((interrupt)) void interrupt_handler(frame *f);
 void init_idt(void);
 void idt_set_descriptor(uint8_t vector, void* isr, uint8_t flags);
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef VGA_H
-#define VGA_H
+#pragma once
 
 #include <stdint.h>
 
@@ -13,4 +12,3 @@ uint16_t get_cursor_offset(void);
 void set_cursor_offset(uint16_t offset);
 void vga_putc(uint8_t ch, uint8_t attr);
 void vga_print(char *s);
-#endif

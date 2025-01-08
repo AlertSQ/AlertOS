@@ -1,5 +1,5 @@
-#ifndef KEYBOARD_H
-#define KEYBOARD_H
+#pragma once
+
 char kscan(void);
 
 static char* _qwertzuiop = "qwertyuiop";
@@ -41,4 +41,3 @@ enum keycode {
   SPACE = 0x39,
   ENTER = 0x1C,
 };*/
-#endif
