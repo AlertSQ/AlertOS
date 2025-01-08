@@ -1,17 +1,13 @@
 #include "include/gdt.h"
 #include "include/idt.h"
+#include "include/syscalls.h"
 #include "../io/include/vga.h"
-#include "../io/include/keyboard.h"
 
 void kmain(void)
 {
   init_gdt();
   init_idt();
-  vga_print("Hello World!");
-  for (;;) {         /* цикл чтения клавишы из клавиатуры */
-   char a = kscan(); /* само чтение  */
-   if (a != 0) {     /* проверка нажатия клавишы  */
-     vga_putc(a, 0x07);  /* вывод символа на экран    */
-   }
-  }
+  vga_print("Ascertain kernel\n");
+  idt_set_descriptor(0x80, dispather, 0xEE); /* Load syscall dispather to IDT */
+  __asm__ __volatile__("movl $1, %eax; int $0x80"); /* Testing syscall */
 }
